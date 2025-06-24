@@ -1,7 +1,7 @@
-import React from "react";
-import "modern-normalize";
-import "./global.css";
-import Header from "../components/layout/Header";
+import React from 'react';
+import 'modern-normalize';
+import '../styles/globals/index.css';
+import Header from '../components/layout/Header';
 
 interface LayoutProps {
     children: React.ReactNode;

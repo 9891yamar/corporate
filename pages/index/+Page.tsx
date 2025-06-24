@@ -1,4 +1,4 @@
-import "./index.css";
+import '../../styles/pages/index.css';
 
 const Page = () => {
     return (

@@ -8,7 +8,9 @@
         "build": "vike build",
         "preview": "vike preview",
         "format": "prettier --write .",
-        "format:check": "prettier --check ."
+        "format:check": "prettier --check .",
+        "lint:css": "stylelint \"**/*.css\" --fix",
+        "lint:css:check": "stylelint \"**/*.css\""
     },
     "dependencies": {
         "modern-normalize": "^3.0.1",
@@ -22,7 +24,14 @@
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
         "@vitejs/plugin-react": "^4.6.0",
+        "autoprefixer": "^10.4.19",
+        "postcss": "^8.4.38",
+        "postcss-import": "^16.1.0",
+        "postcss-nested": "^6.2.0",
+        "postcss-preset-env": "^9.5.0",
         "prettier": "^3.3.3",
+        "stylelint": "^16.6.1",
+        "stylelint-config-standard": "^36.0.1",
         "typescript": "^5.8.3",
         "vite": "^5.4.19"
     }

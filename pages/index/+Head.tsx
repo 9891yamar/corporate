@@ -1,26 +1,26 @@
 export const Head = () => {
     const websiteSchema = {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: "株式会社サンプル",
-        url: "https://yoursite.com",
-        description: "株式会社サンプルの公式企業サイトです。",
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: '株式会社サンプル',
+        url: 'https://yoursite.com',
+        description: '株式会社サンプルの公式企業サイトです。',
         potentialAction: {
-            "@type": "SearchAction",
-            target: "https://yoursite.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string",
+            '@type': 'SearchAction',
+            target: 'https://yoursite.com/search?q={search_term_string}',
+            'query-input': 'required name=search_term_string',
         },
     };
 
     const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
         itemListElement: [
             {
-                "@type": "ListItem",
+                '@type': 'ListItem',
                 position: 1,
-                name: "ホーム",
-                item: "https://yoursite.com",
+                name: 'ホーム',
+                item: 'https://yoursite.com',
             },
         ],
     };

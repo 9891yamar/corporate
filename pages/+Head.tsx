@@ -1,23 +1,23 @@
 export const Head = () => {
     const organizationSchema = {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "株式会社サンプル",
-        url: "https://yoursite.com",
-        logo: "https://yoursite.com/logo.png",
-        description: "株式会社サンプルの公式企業サイトです。",
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: '株式会社サンプル',
+        url: 'https://yoursite.com',
+        logo: 'https://yoursite.com/logo.png',
+        description: '株式会社サンプルの公式企業サイトです。',
         address: {
-            "@type": "PostalAddress",
-            streetAddress: "東京都渋谷区サンプル1-2-3",
-            addressLocality: "渋谷区",
-            addressRegion: "東京都",
-            postalCode: "150-0000",
-            addressCountry: "JP",
+            '@type': 'PostalAddress',
+            streetAddress: '東京都渋谷区サンプル1-2-3',
+            addressLocality: '渋谷区',
+            addressRegion: '東京都',
+            postalCode: '150-0000',
+            addressCountry: 'JP',
         },
         contactPoint: {
-            "@type": "ContactPoint",
-            telephone: "+81-3-1234-5678",
-            contactType: "customer service",
+            '@type': 'ContactPoint',
+            telephone: '+81-3-1234-5678',
+            contactType: 'customer service',
         },
     };
     return (

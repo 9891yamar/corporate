@@ -4,15 +4,15 @@ Vite + TypeScript + Vike(React) V1 を使用したモダンな SSR 企業サイ�
 
 ## 🚀 技術スタック
 
--   **Vike V1** - フルスタック React フレームワーク（SSR 対応）
--   **React 19** - 最新の React バージョン
--   **TypeScript** - 型安全な JavaScript
--   **Vite** - 高速ビルドツール
--   **CSS Modules** - スコープ化された CSS
--   **modern-normalize** - モダンな CSS リセット
--   **vike-react** - Vike 用 React 統合
--   **Prettier** - コードフォーマッター
--   **microCMS** - ヘッドレス CMS（ニュース管理）
+- **Vike V1** - フルスタック React フレームワーク（SSR 対応）
+- **React 19** - 最新の React バージョン
+- **TypeScript** - 型安全な JavaScript
+- **Vite** - 高速ビルドツール
+- **CSS Modules** - スコープ化された CSS
+- **modern-normalize** - モダンな CSS リセット
+- **vike-react** - Vike 用 React 統合
+- **Prettier** - コードフォーマッター
+- **microCMS** - ヘッドレス CMS（ニュース管理）
 
 ## 📁 ディレクトリ構造
 
@@ -64,15 +64,15 @@ vike-ssr-corporate/
 
 ## ✨ 特徴
 
--   ✅ **SSR 対応** - サーバーサイドレンダリング（prerender: false）
--   ✅ **Vike V1 設計** - 最新の Vike 設計パターンを採用
--   ✅ **TypeScript 完全対応** - 型安全な開発環境
--   ✅ **CSS Modules** - スコープ化されたスタイル管理
--   ✅ **モダン CSS** - modern-normalize によるブラウザ差異の解消
--   ✅ **SEO 最適化** - 構造化データ(JSON-LD)とメタタグ対応
--   ✅ **コンポーネント分離** - 再利用可能なコンポーネント構造
--   ✅ **アロー関数** - モダンな React 記法
--   ✅ **パフォーマンス最適化** - Vite による高速開発・ビルド
+- ✅ **SSR 対応** - サーバーサイドレンダリング（prerender: false）
+- ✅ **Vike V1 設計** - 最新の Vike 設計パターンを採用
+- ✅ **TypeScript 完全対応** - 型安全な開発環境
+- ✅ **CSS Modules** - スコープ化されたスタイル管理
+- ✅ **モダン CSS** - modern-normalize によるブラウザ差異の解消
+- ✅ **SEO 最適化** - 構造化データ(JSON-LD)とメタタグ対応
+- ✅ **コンポーネント分離** - 再利用可能なコンポーネント構造
+- ✅ **アロー関数** - モダンな React 記法
+- ✅ **パフォーマンス最適化** - Vite による高速開発・ビルド
 
 ## 🛠️ セットアップ手順
 
@@ -99,12 +99,12 @@ API の型: リスト形式
 
 フィールド設定:
 
--   `title` (テキストフィールド) - 必須
--   `content` (リッチエディタ) - 必須
--   `category` (コンテンツ参照) - カテゴリ API 参照
--   `thumbnail` (画像) - 任意
--   `excerpt` (テキストエリア) - 任意
--   `tags` (複数テキスト) - 任意
+- `title` (テキストフィールド) - 必須
+- `content` (リッチエディタ) - 必須
+- `category` (コンテンツ参照) - カテゴリ API 参照
+- `thumbnail` (画像) - 任意
+- `excerpt` (テキストエリア) - 任意
+- `tags` (複数テキスト) - 任意
 
 **カテゴリ API (categories)**
 
@@ -115,8 +115,8 @@ API の型: リスト形式
 
 フィールド設定:
 
--   `name` (テキストフィールド) - 必須
--   `slug` (テキストフィールド) - 必須
+- `name` (テキストフィールド) - 必須
+- `slug` (テキストフィールド) - 必須
 
 #### 2-2. 環境変数の設定
 
@@ -130,8 +130,8 @@ MICROCMS_SERVICE_DOMAIN=your-service-id
 
 **取得方法:**
 
--   `MICROCMS_API_KEY`: microCMS ダッシュボード → API キー → X-MICROCMS-API-KEY をコピー
--   `MICROCMS_SERVICE_DOMAIN`: microCMS の URL `https://your-service-id.microcms.io/` の `your-service-id` 部分
+- `MICROCMS_API_KEY`: microCMS ダッシュボード → API キー → X-MICROCMS-API-KEY をコピー
+- `MICROCMS_SERVICE_DOMAIN`: microCMS の URL `https://your-service-id.microcms.io/` の `your-service-id` 部分
 
 ## 🚀 実行方法
 
@@ -159,67 +159,67 @@ pnpm run preview
 
 ### トップページ (`/`)
 
--   企業の紹介とサービス概要
--   特徴的な機能の紹介セクション
--   ヒーローセクション
+- 企業の紹介とサービス概要
+- 特徴的な機能の紹介セクション
+- ヒーローセクション
 
 ### 会社概要 (`/about`)
 
--   会社情報テーブル
--   企業理念セクション
--   会社の詳細情報
+- 会社情報テーブル
+- 企業理念セクション
+- 会社の詳細情報
 
 ### ニュース・お知らせ (`/news`)
 
--   microCMS による動的ニュース一覧
--   カテゴリ別表示
--   個別記事詳細ページ (`/news/[id]`)
--   SEO 最適化済み
+- microCMS による動的ニュース一覧
+- カテゴリ別表示
+- 個別記事詳細ページ (`/news/[id]`)
+- SEO 最適化済み
 
 ### エラーページ
 
--   404 エラーページ
--   一般的なエラーページ
+- 404 エラーページ
+- 一般的なエラーページ
 
 ## 🎨 コンポーネント設計
 
 ### Layout 構造
 
--   `+Layout.tsx` - 全ページ共通レイアウト
--   Header、Main、Footer の基本構造
--   CSS Modules によるスタイル管理
+- `+Layout.tsx` - 全ページ共通レイアウト
+- Header、Main、Footer の基本構造
+- CSS Modules によるスタイル管理
 
 ### HEAD 管理
 
--   `+Head.tsx` - ページごとのメタタグ管理
--   SEO 最適化と OGP 設定
--   JSON-LD 構造化データ対応
+- `+Head.tsx` - ページごとのメタタグ管理
+- SEO 最適化と OGP 設定
+- JSON-LD 構造化データ対応
 
 ### コンポーネント分類
 
--   `components/layout/` - Header、Footer などのレイアウト
--   `components/ui/` - Button、Card、Modal などの UI コンポーネント
--   `components/common/` - Container、Section、Heading などの共通コンポーネント
+- `components/layout/` - Header、Footer などのレイアウト
+- `components/ui/` - Button、Card、Modal などの UI コンポーネント
+- `components/common/` - Container、Section、Heading などの共通コンポーネント
 
 ## 🎯 開発のポイント
 
 ### TypeScript
 
--   完全な型安全性
--   CSS Modules 用の型定義
--   厳格な eslint 設定
+- 完全な型安全性
+- CSS Modules 用の型定義
+- 厳格な eslint 設定
 
 ### スタイル管理
 
--   **CSS Modules** - コンポーネント固有のスタイル
--   **グローバル CSS** - 全体共通のスタイル
--   **modern-normalize** - ブラウザ差異の統一
+- **CSS Modules** - コンポーネント固有のスタイル
+- **グローバル CSS** - 全体共通のスタイル
+- **modern-normalize** - ブラウザ差異の統一
 
 ### パフォーマンス
 
--   **SSR** - 初回表示の高速化
--   **コード分割** - 必要なコードのみ読み込み
--   **画像最適化** - public/images/での静的ファイル管理
+- **SSR** - 初回表示の高速化
+- **コード分割** - 必要なコードのみ読み込み
+- **画像最適化** - public/images/での静的ファイル管理
 
 ## 🚀 デプロイ
 
@@ -264,20 +264,20 @@ touch components/ui/Button/index.ts
 
 ### CMS 連携（オプション）
 
--   **microCMS** - 日本製ヘッドレス CMS
--   **Contentful** - 海外製ヘッドレス CMS
--   **Strapi** - オープンソース CMS
+- **microCMS** - 日本製ヘッドレス CMS
+- **Contentful** - 海外製ヘッドレス CMS
+- **Strapi** - オープンソース CMS
 
 ## 📝 今後の拡張予定
 
--   [ ] お問い合わせフォーム
--   [x] ニュース・お知らせ機能（microCMS 連携） ✅
--   [ ] サイトマップ自動生成
--   [ ] PWA 対応
--   [ ] 多言語対応（i18n）
--   [ ] ダークモード対応
--   [ ] ニュース記事の検索機能
--   [ ] RSS フィード生成
+- [ ] お問い合わせフォーム
+- [x] ニュース・お知らせ機能（microCMS 連携） ✅
+- [ ] サイトマップ自動生成
+- [ ] PWA 対応
+- [ ] 多言語対応（i18n）
+- [ ] ダークモード対応
+- [ ] ニュース記事の検索機能
+- [ ] RSS フィード生成
 
 ## 🤝 コントリビューション
 
