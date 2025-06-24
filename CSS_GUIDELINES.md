@@ -15,6 +15,8 @@
 11. [トラブルシューティング](#トラブルシューティング)
 12. [Components運用](#components運用)
 13. [TypeScript / React規約](#typescript--react規約)
+14. [HTMLマークアップ規約](#htmlマークアップ規約)
+15. [画像・アセット命名規約](#画像アセット命名規約)
 
 ## 概要
 
@@ -1114,3 +1116,311 @@ const handleClick = useCallback(
 ```
 
 これらの規約に従うことで、保守性が高く、型安全で、パフォーマンスの良いReactアプリケーションを構築できます。
+
+## 画像・アセット命名規約
+
+このセクションでは、画像やその他のアセットファイルの命名規約について説明します。一貫性のある命名により、ファイル管理と保守性を向上させます。
+
+### 🎯 基本方針
+
+- **一貫性**: 統一された命名パターンを使用
+- **可読性**: ファイル名から内容と用途が分かる
+- **保守性**: 変更・削除・追加が容易
+- **SEO最適化**: 検索エンジンに適した命名
+- **パフォーマンス**: 適切なファイル形式と最適化
+
+### 📋 基本命名ルール
+
+#### 基本パターン
+
+```
+[category]-[description]-[variant].[extension]
+```
+
+- **category**: カテゴリ（logo, hero, icon等）
+- **description**: 説明（company, product, service等）
+- **variant**: バリアント（primary, secondary, sm, md, lg等）
+- **extension**: ファイル形式（jpg, png, svg, webp等）
+
+#### 文字規則
+
+- **小文字のみ**: すべて小文字を使用
+- **ハイフン区切り**: 単語の区切りは`-`（ハイフン）
+- **英数字のみ**: 日本語や特殊文字は使用しない
+- **短縮形**: 可読性を保ちつつ簡潔に
+
+### 🗂️ ディレクトリ構造
+
+```
+public/
+├── images/
+│   ├── logo/                    # ロゴ関連
+│   │   ├── logo-primary.svg
+│   │   ├── logo-white.svg
+│   │   └── logo-favicon.ico
+│   ├── hero/                    # ヒーローセクション
+│   │   ├── hero-main.jpg
+│   │   ├── hero-about.jpg
+│   │   └── hero-services.jpg
+│   ├── company/                 # 会社関連
+│   │   ├── company-building.jpg
+│   │   ├── company-team.jpg
+│   │   └── company-ceo.jpg
+│   ├── services/                # サービス関連
+│   │   ├── service-web-dev.svg
+│   │   ├── service-app-dev.svg
+│   │   └── service-consulting.svg
+│   ├── icons/                   # アイコン
+│   │   ├── icon-phone.svg
+│   │   ├── icon-email.svg
+│   │   └── icon-location.svg
+│   ├── ui/                      # UI要素
+│   │   ├── btn-arrow.svg
+│   │   ├── bg-pattern.png
+│   │   └── separator.svg
+│   └── temp/                    # 一時的な画像
+│       └── placeholder.jpg
+└── assets/                      # その他アセット
+    ├── documents/
+    └── downloads/
+```
+
+### 🎨 カテゴリ別命名規則
+
+#### ロゴ・ブランディング
+
+```
+logo-[variant].[ext]
+favicon-[size].[ext]
+brand-[element].[ext]
+
+例:
+- logo-primary.svg        # メインロゴ
+- logo-white.svg          # 白色ロゴ
+- logo-monochrome.svg     # モノクロロゴ
+- favicon-16x16.png       # ファビコン
+- favicon-32x32.png
+- brand-symbol.svg        # ブランドシンボル
+- brand-wordmark.svg      # ワードマーク
+```
+
+#### ヒーロー・メインビジュアル
+
+```
+hero-[page]-[variant].[ext]
+banner-[purpose].[ext]
+
+例:
+- hero-main.jpg           # トップページヒーロー
+- hero-about.jpg          # 会社概要ページ
+- hero-services.jpg       # サービスページ
+- hero-contact.jpg        # お問い合わせページ
+- banner-campaign.jpg     # キャンペーンバナー
+- banner-recruitment.jpg  # 採用バナー
+```
+
+#### 会社・人物
+
+```
+company-[subject].[ext]
+team-[role]-[name].[ext]
+person-[name]-[variant].[ext]
+
+例:
+- company-building.jpg    # 会社建物
+- company-office.jpg      # オフィス風景
+- company-meeting.jpg     # 会議風景
+- team-ceo-portrait.jpg   # CEO肖像
+- team-dev-team.jpg       # 開発チーム
+- person-tanaka-profile.jpg # 田中さんプロフィール
+```
+
+#### サービス・製品
+
+```
+service-[name]-[variant].[ext]
+product-[name]-[variant].[ext]
+feature-[name].[ext]
+
+例:
+- service-web-dev.svg     # Web開発サービス
+- service-app-dev.svg     # アプリ開発サービス
+- service-consulting.svg  # コンサルティング
+- product-app-screenshot.png # アプリスクリーン
+- feature-security.svg    # セキュリティ機能
+- feature-performance.svg # パフォーマンス機能
+```
+
+#### アイコン
+
+```
+icon-[name]-[variant].[ext]
+ico-[name].[ext]        # 短縮形
+
+例:
+- icon-phone.svg          # 電話アイコン
+- icon-email.svg          # メールアイコン
+- icon-location.svg       # 位置アイコン
+- icon-arrow-right.svg    # 右矢印
+- icon-check-circle.svg   # チェックサークル
+- ico-twitter.svg         # Twitterアイコン
+- ico-facebook.svg        # Facebookアイコン
+```
+
+#### UI要素・装飾
+
+```
+ui-[element]-[variant].[ext]
+bg-[pattern].[ext]
+decoration-[name].[ext]
+
+例:
+- ui-button-arrow.svg     # ボタン用矢印
+- ui-divider.svg          # 区切り線
+- ui-pattern-dots.svg     # ドットパターン
+- bg-gradient.png         # グラデーション背景
+- bg-texture.jpg          # テクスチャ背景
+- decoration-wave.svg     # 波形装飾
+```
+
+### 📱 レスポンシブ対応
+
+#### サイズバリアント
+
+```
+[base-name]-[size].[ext]
+
+サイズ指定:
+- xs: 320px以下
+- sm: 640px以下
+- md: 768px以下
+- lg: 1024px以下
+- xl: 1200px以上
+
+例:
+- hero-main-sm.jpg        # スマートフォン用
+- hero-main-md.jpg        # タブレット用
+- hero-main-lg.jpg        # デスクトップ用
+- logo-primary-sm.svg     # 小サイズロゴ
+```
+
+#### 解像度バリアント
+
+```
+[base-name]-[density].[ext]
+
+密度指定:
+- 1x: 標準解像度
+- 2x: Retina対応
+- 3x: 高解像度
+
+例:
+- icon-phone-1x.png       # 標準解像度
+- icon-phone-2x.png       # Retina対応
+- icon-phone-3x.png       # 高解像度
+```
+
+### 🔧 ファイル形式ガイドライン
+
+#### SVG（推奨）
+
+```
+使用場面:
+- ロゴ・アイコン
+- 単色・少色のイラスト
+- UI要素
+
+命名例:
+- logo-primary.svg
+- icon-menu.svg
+- ui-arrow.svg
+```
+
+#### WebP（推奨）
+
+```
+使用場面:
+- 写真・複雑な画像
+- 高画質が必要な画像
+- モダンブラウザ対応
+
+命名例:
+- hero-main.webp
+- company-building.webp
+- product-screenshot.webp
+```
+
+#### JPG/JPEG
+
+```
+使用場面:
+- 写真・グラデーション
+- フォールバック用
+- レガシーブラウザ対応
+
+命名例:
+- hero-main.jpg
+- company-team.jpg
+- service-image.jpg
+```
+
+#### PNG
+
+```
+使用場面:
+- 透明背景が必要
+- アイコン（SVG不可の場合）
+- スクリーンショット
+
+命名例:
+- logo-transparent.png
+- app-screenshot.png
+- ui-overlay.png
+```
+
+### 📝 状態・バリアント命名
+
+#### 状態を表すサフィックス
+
+```
+-default        # 通常状態
+-hover          # ホバー状態
+-active         # アクティブ状態
+-disabled       # 無効状態
+-selected       # 選択状態
+-loading        # 読み込み状態
+
+例:
+- btn-primary-default.svg
+- btn-primary-hover.svg
+- icon-star-active.svg
+```
+
+#### スタイルバリアント
+
+```
+-primary        # プライマリ
+-secondary      # セカンダリ
+-light          # ライト
+-dark           # ダーク
+-outline        # アウトライン
+-solid          # ソリッド
+
+例:
+- logo-primary.svg
+- logo-light.svg
+- btn-outline.svg
+```
+
+### 🚀 最適化とパフォーマンス
+
+#### ファイルサイズガイドライン
+
+```
+アイコン・ロゴ:
+- SVG: 5KB以下
+- PNG: 10KB以下
+
+写真・画像:
+- WebP:
+```
