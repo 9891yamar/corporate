@@ -13,6 +13,8 @@
 9. [レスポンシブデザイン](#レスポンシブデザイン)
 10. [開発ワークフロー](#開発ワークフロー)
 11. [トラブルシューティング](#トラブルシューティング)
+12. [Components運用](#components運用)
+13. [TypeScript / React規約](#typescript--react規約)
 
 ## 概要
 
@@ -42,7 +44,6 @@ styles/
 │   ├── reset.css         # CSSリセット
 │   ├── typography.css    # タイポグラフィ
 │   └── utilities.css     # ユーティリティクラス
-├── components/           # コンポーネント固有スタイル
 └── pages/               # ページ固有スタイル
 ```
 
@@ -257,10 +258,7 @@ interface ButtonProps {
     children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-    variant = 'primary',
-    children,
-}) => {
+export const Button = ({ variant = 'primary', children }: ButtonProps) => {
     return (
         <button className={`${styles.button} ${styles[variant]}`}>
             {children}
@@ -602,14 +600,517 @@ color: var(--color-primary, #667eea);
 3. **CSS Variables**の値が正しく設定されているか確認
 4. **メディアクエリ**のブレークポイントが正しいか確認
 
-## まとめ
+## Components運用
 
-このCSS運用ガイドラインに従うことで、以下の利点が得られます：
+ここでは、コンポーネントに関連するスタイルの運用ルールについて説明します。
 
-- ✅ **保守性の向上** - 一貫した命名規則とファイル構造
-- ✅ **開発効率の向上** - ユーティリティクラスによる高速開発
-- ✅ **デザインの一貫性** - CSS Variablesによるデザインシステム
-- ✅ **バグの削減** - CSS ModulesによるスコープとLinting
-- ✅ **パフォーマンス** - 最適化されたCSS出力
+### 🏗️ コンポーネント構造
 
-継続的な改善とチームでの共有により、より良いCSS運用を実現していきましょう！
+```
+components/
+├── ui/                    # 基本UIコンポーネント
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   ├── Button.module.css
+│   │   └── index.ts
+│   └── Card/
+│       ├── Card.tsx
+│       ├── Card.module.css
+│       └── index.ts
+├── layout/                # レイアウト関連
+│   └── Header/
+│       ├── Header.tsx
+│       ├── Header.module.css
+│       └── index.ts
+├── features/              # 機能固有のコンポーネント
+└── common/                # 共通コンポーネント
+```
+
+### 📋 運用ルール
+
+#### 1. **命名規則**
+
+- **コンポーネント名**: PascalCase (`Button`, `CardHeader`)
+- **ファイル名**: PascalCase (`Button.tsx`, `Card.module.css`)
+- **CSS クラス名**: camelCase (`button`, `primaryVariant`)
+
+#### 2. **ファイル構成**
+
+```
+ComponentName/
+├── ComponentName.tsx         # コンポーネント本体
+├── ComponentName.module.css  # CSS Modules
+└── index.ts                 # エクスポート用ファイル
+```
+
+#### 3. **プロパティの設計**
+
+- **必須プロパティ**: 最小限に抑える
+- **オプショナル**: デフォルト値を提供
+- **拡張性**: `...props` で HTML属性を受け取る
+- **型安全性**: TypeScript の interface を定義
+
+#### 4. **CSS Modules運用**
+
+- **CSS Variables**: グローバル変数を積極活用
+- **レスポンシブ**: Mobile First アプローチ
+- **アクセシビリティ**: focus, hover, active 状態を考慮
+
+#### 5. **コンポーネントの分類**
+
+- **ui/**: 再利用可能な基本コンポーネント（Button, Card, Input等）
+- **layout/**: レイアウト関連コンポーネント（Header, Footer等）
+- **features/**: 機能固有のコンポーネント
+- **common/**: 共通ユーティリティコンポーネント
+
+### 💡 実装例
+
+#### Buttonコンポーネント
+
+```tsx
+import { ReactNode, ButtonHTMLAttributes } from 'react';
+import styles from './Button.module.css';
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+    size?: 'sm' | 'md' | 'lg';
+    fullWidth?: boolean;
+    loading?: boolean;
+    children: ReactNode;
+}
+
+export const Button = ({
+    variant = 'primary',
+    size = 'md',
+    fullWidth = false,
+    loading = false,
+    className,
+    disabled,
+    children,
+    ...props
+}: ButtonProps) => {
+    const buttonClasses = [
+        styles.button,
+        styles[variant],
+        styles[size],
+        fullWidth ? styles.fullWidth : '',
+        loading ? styles.loading : '',
+        className || '',
+    ]
+        .filter(Boolean)
+        .join(' ');
+
+    return (
+        <button
+            className={buttonClasses}
+            disabled={disabled || loading}
+            {...props}
+        >
+            {loading && <span className={styles.spinner} />}
+            <span className={styles.content}>{children}</span>
+        </button>
+    );
+};
+```
+
+#### 対応するCSS
+
+```css
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.primary {
+    background: linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        var(--color-secondary) 100%
+    );
+    color: var(--color-text-inverse);
+}
+
+.md {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-base);
+    min-height: 44px;
+}
+```
+
+### 🔄 使用方法
+
+#### コンポーネントのインポート
+
+```tsx
+// 個別インポート
+import { Button } from '../../components/ui/Button';
+import { Card, CardBody } from '../../components/ui/Card';
+
+// 統合インポート
+import { Button, Card, CardBody } from '../../components';
+```
+
+#### 使用例
+
+```tsx
+<Card variant="elevated" hoverable>
+    <CardBody>
+        <h3>タイトル</h3>
+        <p>説明文</p>
+        <Button variant="primary" size="lg">
+            アクション
+        </Button>
+    </CardBody>
+</Card>
+```
+
+### ⚠️ 注意点
+
+1. **CSS Modules**: 必ずCSS Modulesを使用してスコープを分離
+2. **CSS Variables**: グローバル変数を活用してデザインの一貫性を保つ
+3. **アクセシビリティ**: セマンティックなHTMLとARIA属性を適切に使用
+4. **レスポンシブ**: モバイルファーストでレスポンシブ対応
+5. **パフォーマンス**: 不要なre-renderを避ける設計
+6. **React.FC禁止**: `React.FC`の使用は禁止。代わりに関数宣言を使用
+
+### 🚫 React.FCが禁止される理由
+
+`React.FC`（React.FunctionComponent）は以下の理由で使用を禁止します：
+
+- **デフォルトのchildren**: 不要な`children`プロパティが自動的に追加される
+- **Generic型の制限**: 型引数を受け取れない
+- **displayName問題**: デバッグ時の表示名が期待通りにならない場合がある
+- **React18との非互換**: 将来的に非推奨になる可能性
+
+#### ❌ 悪い例（使用禁止）
+
+```tsx
+// React.FCは使用禁止
+export const Button: React.FC<ButtonProps> = ({ children }) => {
+    return <button>{children}</button>;
+};
+```
+
+#### ✅ 良い例（推奨）
+
+```tsx
+// アロー関数による宣言（推奨）
+export const Button = ({ children }: ButtonProps) => {
+    return <button>{children}</button>;
+};
+```
+
+### 🔧 関数宣言の使い分け
+
+#### アロー関数（推奨）
+
+```tsx
+// ✅ Reactコンポーネント（推奨）
+export const Button = ({ children }: ButtonProps) => {
+    return <button>{children}</button>;
+};
+
+// ✅ カスタムフック
+export const useToggle = (initialValue = false) => {
+    const [value, setValue] = useState(initialValue);
+    return { value, toggle: () => setValue(!value) };
+};
+
+// ✅ イベントハンドラー
+const handleClick = () => {
+    console.log('clicked');
+};
+```
+
+#### Function宣言（特定の場面のみ）
+
+```tsx
+// ✅ Vikeフレームワークのdata関数（フレームワーク規約）
+export default async function data(): Promise<Data> {
+    return {
+        /* データ */
+    };
+}
+
+// ✅ エラーバウンダリ（クラスベースが必要）
+export class ErrorBoundary extends Component {
+    // ...
+}
+
+// ✅ ホイスティングが必要な場合（稀）
+function helperFunction() {
+    // 定義前に呼び出される必要がある関数
+}
+```
+
+## TypeScript / React規約
+
+このセクションでは、TypeScriptとReactの使用における規約とベストプラクティスを定義します。
+
+### 🎯 基本方針
+
+- **型安全性**: TypeScriptの型システムを最大限活用
+- **モダンReact**: 最新のReactの機能と記法を使用
+- **関数コンポーネント**: クラスコンポーネントは使用禁止
+- **Hooks**: 状態管理とライフサイクルはHooksを使用
+- **アロー関数優先**: コンポーネントはアロー関数で定義（フレームワーク規約除く）
+
+### 📋 コンポーネント記法規約
+
+#### ✅ 推奨（アロー関数）
+
+```tsx
+// アロー関数による宣言（推奨）
+export const Button = ({ variant, children }: ButtonProps) => {
+    return <button className={styles[variant]}>{children}</button>;
+};
+```
+
+#### 🚫 禁止事項
+
+```tsx
+// React.FC は使用禁止
+export const Button: React.FC<ButtonProps> = ({ children }) => {
+    return <button>{children}</button>;
+};
+
+// React.FunctionComponent も使用禁止
+export const Button: React.FunctionComponent<ButtonProps> = ({ children }) => {
+    return <button>{children}</button>;
+};
+
+// クラスコンポーネントは使用禁止
+class Button extends React.Component<ButtonProps> {
+    render() {
+        return <button>{this.props.children}</button>;
+    }
+}
+```
+
+### 🔧 Propsの型定義
+
+#### インターフェース定義
+
+```tsx
+// 基本的なPropsインターフェース
+export interface ButtonProps {
+    variant?: 'primary' | 'secondary';
+    size?: 'sm' | 'md' | 'lg';
+    disabled?: boolean;
+    children: ReactNode;
+}
+
+// HTML属性を継承する場合
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'primary' | 'secondary';
+    loading?: boolean;
+    children: ReactNode;
+}
+
+// 汎用的なProps
+export interface ComponentProps<T = HTMLDivElement> extends HTMLAttributes<T> {
+    variant?: string;
+    children?: ReactNode;
+}
+```
+
+#### オプショナルプロパティの扱い
+
+```tsx
+// デフォルト値を関数パラメータで設定（推奨）
+export const Button = ({
+    variant = 'primary',
+    size = 'md',
+    disabled = false,
+    children,
+    ...props
+}: ButtonProps) => {
+    // ...
+};
+```
+
+### 📚 Import/Export規約
+
+#### Import順序
+
+```tsx
+// 1. React関連
+import { ReactNode, useState, useEffect } from 'react';
+
+// 2. 外部ライブラリ
+import clsx from 'clsx';
+
+// 3. 内部モジュール（相対パス順）
+import { utils } from '../../../utils';
+import { Button } from '../Button';
+import styles from './Component.module.css';
+```
+
+#### Export方法
+
+```tsx
+// Named Export（推奨）
+export const Button = () => { /* ... */ };
+export interface ButtonProps = () => { /* ... */ };
+
+// 末尾でのexport（OK）
+const Button = () => { /* ... */ };
+interface ButtonProps = () => { /* ... */ }
+
+export { Button };
+export type { ButtonProps };
+```
+
+### 🎣 Hooks使用規約
+
+#### カスタムHooks
+
+```tsx
+// カスタムHookの命名は "use" で始める
+export const useToggle = (initialValue = false) => {
+    const [value, setValue] = useState(initialValue);
+
+    const toggle = useCallback(() => setValue(prev => !prev), []);
+    const setTrue = useCallback(() => setValue(true), []);
+    const setFalse = useCallback(() => setValue(false), []);
+
+    return { value, toggle, setTrue, setFalse };
+};
+```
+
+#### useEffectの使用
+
+```tsx
+// 依存配列は必ず記述
+useEffect(() => {
+    // effect logic
+}, [dependency1, dependency2]);
+
+// 空の依存配列でマウント時のみ実行
+useEffect(() => {
+    // mount logic
+}, []);
+
+// クリーンアップ関数
+useEffect(() => {
+    const subscription = subscribe();
+
+    return () => {
+        subscription.unsubscribe();
+    };
+}, []);
+```
+
+### 🔍 型定義のベストプラクティス
+
+#### Union型の活用
+
+```tsx
+// 文字列リテラル型でvariantを制限
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
+
+// オブジェクトのキーから型を生成
+const SIZES = {
+    small: 'sm',
+    medium: 'md',
+    large: 'lg',
+} as const;
+
+type ButtonSize = (typeof SIZES)[keyof typeof SIZES]; // 'sm' | 'md' | 'lg'
+```
+
+#### 条件付き型
+
+```tsx
+// プロパティの組み合わせを制御
+interface BaseButtonProps {
+    children: ReactNode;
+    disabled?: boolean;
+}
+
+interface LoadingButtonProps extends BaseButtonProps {
+    loading: true;
+    onClick?: never; // loading時はonClickを無効化
+}
+
+interface NormalButtonProps extends BaseButtonProps {
+    loading?: false;
+    onClick: () => void;
+}
+
+type ButtonProps = LoadingButtonProps | NormalButtonProps;
+```
+
+### 🛡️ エラーハンドリング
+
+#### Error Boundary
+
+```tsx
+// Error Boundaryコンポーネント
+export class ErrorBoundary extends Component<
+    { children: ReactNode; fallback?: ReactNode },
+    { hasError: boolean }
+> {
+    constructor(props: { children: ReactNode; fallback?: ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(): { hasError: boolean } {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+        console.error('Error caught by boundary:', error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return this.props.fallback || <div>Something went wrong.</div>;
+        }
+
+        return this.props.children;
+    }
+}
+```
+
+### 📏 命名規則
+
+- **コンポーネント**: PascalCase (`Button`, `UserProfile`)
+- **Props**: PascalCase + "Props" (`ButtonProps`, `UserProfileProps`)
+- **関数**: camelCase (`handleClick`, `fetchUserData`)
+- **定数**: UPPER_SNAKE_CASE (`MAX_RETRY_COUNT`, `API_ENDPOINTS`)
+- **カスタムHooks**: camelCase + "use" prefix (`useAuth`, `useLocalStorage`)
+
+### ⚡ パフォーマンス考慮事項
+
+#### メモ化
+
+```tsx
+// React.memo for component memoization
+export const ExpensiveComponent = memo(({ data }: Props) => {
+    return <div>{/* expensive rendering */}</div>;
+});
+
+// useMemo for expensive calculations
+const expensiveValue = useMemo(() => {
+    return expensiveCalculation(data);
+}, [data]);
+
+// useCallback for function memoization
+const handleClick = useCallback(
+    (id: string) => {
+        onItemClick(id);
+    },
+    [onItemClick]
+);
+```
+
+これらの規約に従うことで、保守性が高く、型安全で、パフォーマンスの良いReactアプリケーションを構築できます。
