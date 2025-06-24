@@ -10,7 +10,13 @@
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint:css": "stylelint \"**/*.css\" --fix",
-        "lint:css:check": "stylelint \"**/*.css\""
+        "lint:css:check": "stylelint \"**/*.css\"",
+        "docker:build": "docker build -t corporate-site .",
+        "docker:run": "docker run -p 3000:3000 corporate-site",
+        "docker:dev": "docker-compose up corporate-dev",
+        "docker:prod": "docker-compose up corporate-site -d",
+        "docker:stop": "docker-compose down",
+        "docker:clean": "docker system prune -f"
     },
     "dependencies": {
         "modern-normalize": "^3.0.1",
@@ -33,6 +39,6 @@
         "stylelint": "^16.6.1",
         "stylelint-config-standard": "^36.0.1",
         "typescript": "^5.8.3",
-        "vite": "^5.4.19"
+        "vite": "^6.3.5"
     }
 }

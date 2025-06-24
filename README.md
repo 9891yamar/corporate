@@ -10,7 +10,7 @@ CSS Variables、CSS Modules、PostCSSを使用したスケーラブルなCSS設�
 - **Vike V1** - フルスタック React フレームワーク（SSR 対応）
 - **React 19** - 最新の React バージョン
 - **TypeScript** - 型安全な JavaScript
-- **Vite** - 高速ビルドツール
+- **Vite 6.3.5** - 最新の高速ビルドツール
 
 ### Styling & UI
 
@@ -25,6 +25,12 @@ CSS Variables、CSS Modules、PostCSSを使用したスケーラブルなCSS設�
 - **Prettier** - コードフォーマッター
 - **Stylelint** - CSS リンティング
 - **vike-react** - Vike 用 React 統合
+- **pnpm 8.9.2** - 高速パッケージマネージャー
+
+### Container & Deployment
+
+- **Docker** - マルチステージビルド対応
+- **Docker Compose** - 開発・本番環境の統一
 
 ## 📁 ディレクトリ構造
 
@@ -136,7 +142,72 @@ pnpm run format       # Prettier実行
 pnpm run format:check # Prettierチェック
 pnpm run lint:css     # Stylelint実行
 pnpm run lint:css:check # Stylelintチェック
+
+# Docker
+pnpm run docker:build # Dockerイメージをビルド
+pnpm run docker:run   # 本番用コンテナを実行
+pnpm run docker:dev   # 開発用コンテナを実行
+pnpm run docker:prod  # 本番用コンテナをバックグラウンドで実行
+pnpm run docker:stop  # Docker Composeコンテナを停止
+pnpm run docker:clean # 未使用のDockerリソースを削除
 ```
+
+## 🐳 Docker対応 ✅
+
+このプロジェクトは完全にDockerコンテナ化に対応しており、動作確認済みです。
+
+### 基本的な使い方
+
+```bash
+# 本番用イメージをビルド
+pnpm run docker:build
+
+# 本番用コンテナを実行（ポート3000）
+pnpm run docker:run
+
+# 開発用コンテナを実行（ポート3001、ホットリロード対応）
+pnpm run docker:dev
+
+# 本番用コンテナをバックグラウンドで実行
+pnpm run docker:prod
+
+# コンテナを停止
+pnpm run docker:stop
+```
+
+### ✅ 動作確認済み
+
+- **本番用ビルド**: マルチステージビルドによる最適化完了
+- **コンテナ起動**: ポート3000でのSSRアプリケーション起動確認
+- **依存関係管理**: pnpm 8.9.2 による安定したパッケージ管理
+- **Vite互換性**: 最新のVite（v6.3.5）との互換性確保
+
+### ファイル構成
+
+- `Dockerfile` - 本番用マルチステージビルド
+- `Dockerfile.dev` - 開発用（ホットリロード対応）
+- `docker-compose.yml` - 開発・本番両方の設定
+- `.dockerignore` - Docker用除外ファイル
+
+### Docker Composeでの実行
+
+```bash
+# 開発モード（ポート3001、ボリュームマウント）
+docker-compose up corporate-dev
+
+# 本番モード（ポート3000、最適化済み）
+docker-compose up corporate-site -d
+
+# 停止
+docker-compose down
+```
+
+### Docker化のメリット
+
+- **環境統一**: 開発・本番環境の一致
+- **簡単デプロイ**: どこでも同じように動作
+- **依存関係管理**: Node.jsバージョンの固定
+- **スケーラビリティ**: Kubernetes等との統合が容易
 
 ## 📄 ページ構成
 
@@ -160,42 +231,20 @@ pnpm run lint:css:check # Stylelintチェック
 
 ## 🎨 CSS設計
 
-### デザインシステム
+このプロジェクトでは**モダンなCSS設計手法**を採用し、保守性・拡張性・パフォーマンスを重視しています。
 
-#### CSS Variables
+### 設計原則
 
-```css
-/* カラーパレット */
---color-primary: #667eea;
---color-secondary: #764ba2;
---color-accent: #3498db;
+- **CSS Variables** - 一貫したデザインシステム
+- **CSS Modules** - コンポーネント単位のスタイル管理
+- **ユーティリティクラス** - 効率的なレイアウト構築
+- **PostCSS** - 変数、ネスト、自動プレフィックス
+- **モバイルファースト** - レスポンシブデザイン
 
-/* スペーシング */
---spacing-xs: 0.5rem;
---spacing-sm: 1rem;
---spacing-md: 1.5rem;
---spacing-lg: 2rem;
-
-/* タイポグラフィ */
---font-size-sm: 0.875rem;
---font-size-base: 1rem;
---font-size-lg: 1.125rem;
-```
-
-#### 構造
-
-```css
-/* 読み込み順序 */
-@import url('./variables.css'); /* 1. 変数定義 */
-@import url('./reset.css'); /* 2. リセット */
-@import url('./typography.css'); /* 3. タイポグラフィ */
-@import url('./utilities.css'); /* 4. ユーティリティ */
-```
-
-### CSS Modules
+### 基本的な使用例
 
 ```tsx
-// コンポーネント固有スタイル
+// CSS Modules の基本的な使用方法
 import styles from './Button.module.css';
 
 export const Button = ({ variant, children }: ButtonProps) => {
@@ -207,7 +256,7 @@ export const Button = ({ variant, children }: ButtonProps) => {
 };
 ```
 
-詳細は [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。
+**詳細な運用ガイドラインは [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
 
 ## 🏗️ コンポーネント設計
 
@@ -253,13 +302,14 @@ import { Button, Card, CardBody } from '../components';
 - ✅ **CSS Variables** - グローバル値の一元管理
 - ✅ **CSS Modules** - コンポーネントスコープ
 - ✅ **命名規則** - camelCase（CSS Modules）、kebab-case（utilities）
-- ✅ **BEM記法** - 必要に応じて使用
 
 ### ファイル命名
 
 - **コンポーネント**: PascalCase (`Button.tsx`)
 - **CSS Modules**: `Component.module.css`
 - **型定義**: `types.ts`、`interfaces.ts`
+
+**詳細な規約は [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
 
 ## 🚀 デプロイ
 
@@ -305,22 +355,31 @@ touch components/ui/Input/index.ts
 export * from './ui/Input';
 ```
 
-### CSS Variablesの拡張
+### CSS Variables・スタイルの拡張
 
 ```css
 /* styles/globals/variables.css */
 :root {
-    /* 新しいカラー */
+    /* カスタムカラー */
     --color-info: #17a2b8;
     --color-dark: #343a40;
-
-    /* 新しいスペーシング */
-    --spacing-3xl: 5rem;
-    --spacing-4xl: 6rem;
 }
 ```
 
-## 📋 TODO / 今後の拡張
+**詳細なカスタマイズ方法は [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
+
+## 📋 完了事項 & 今後の拡張
+
+### ✅ 完了事項
+
+- [x] **Docker完全対応** - マルチステージビルド・開発環境対応
+- [x] **CSS設計の確立** - CSS Variables・Modules・ユーティリティクラス
+- [x] **UIコンポーネント** - Button・Card・Headerの実装
+- [x] **開発環境整備** - Prettier・Stylelint・VSCode統合
+- [x] **TypeScript完全対応** - 型安全性とlintルール
+- [x] **CSS運用ガイドライン** - 詳細な設計指針とチェックリスト
+- [x] **レスポンシブデザイン** - モバイルファースト設計
+- [x] **アクセシビリティ** - ARIA対応・キーボードナビゲーション
 
 ### 短期的な改善
 
@@ -359,198 +418,6 @@ export * from './ui/Input';
 - [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) - CSS運用ガイドライン
 - [Vike Documentation](https://vike.dev/) - Vike公式ドキュメント
 - [React 19 Documentation](https://react.dev/) - React公式ドキュメント
-
-## 📄 ライセンス
-
-このプロジェクトは MIT ライセンスの下で公開されています。
-
-- `title` (テキストフィールド) - 必須
-- `content` (リッチエディタ) - 必須
-- `category` (コンテンツ参照) - カテゴリ API 参照
-- `thumbnail` (画像) - 任意
-- `excerpt` (テキストエリア) - 任意
-- `tags` (複数テキスト) - 任意
-
-**カテゴリ API (categories)**
-
-```
-エンドポイント: categories
-API の型: リスト形式
-```
-
-フィールド設定:
-
-- `name` (テキストフィールド) - 必須
-- `slug` (テキストフィールド) - 必須
-
-#### 2-2. 環境変数の設定
-
-プロジェクトルートの `.env` ファイルを編集:
-
-```bash
-# microCMS設定
-MICROCMS_API_KEY=your-api-key-here
-MICROCMS_SERVICE_DOMAIN=your-service-id
-```
-
-**取得方法:**
-
-- `MICROCMS_API_KEY`: microCMS ダッシュボード → API キー → X-MICROCMS-API-KEY をコピー
-- `MICROCMS_SERVICE_DOMAIN`: microCMS の URL `https://your-service-id.microcms.io/` の `your-service-id` 部分
-
-## 🚀 実行方法
-
-### 開発サーバーの起動
-
-```bash
-pnpm run dev
-```
-
-開発サーバーは http://localhost:3000 で起動します。
-
-### 本番用ビルド
-
-```bash
-pnpm run build
-```
-
-### 本番サーバーの起動（ビルド後）
-
-```bash
-pnpm run preview
-```
-
-## 📄 ページ構成
-
-### トップページ (`/`)
-
-- 企業の紹介とサービス概要
-- 特徴的な機能の紹介セクション
-- ヒーローセクション
-
-### 会社概要 (`/about`)
-
-- 会社情報テーブル
-- 企業理念セクション
-- 会社の詳細情報
-
-### ニュース・お知らせ (`/news`)
-
-- microCMS による動的ニュース一覧
-- カテゴリ別表示
-- 個別記事詳細ページ (`/news/[id]`)
-- SEO 最適化済み
-
-### エラーページ
-
-- 404 エラーページ
-- 一般的なエラーページ
-
-## 🎨 コンポーネント設計
-
-### Layout 構造
-
-- `+Layout.tsx` - 全ページ共通レイアウト
-- Header、Main、Footer の基本構造
-- CSS Modules によるスタイル管理
-
-### HEAD 管理
-
-- `+Head.tsx` - ページごとのメタタグ管理
-- SEO 最適化と OGP 設定
-- JSON-LD 構造化データ対応
-
-### コンポーネント分類
-
-- `components/layout/` - Header、Footer などのレイアウト
-- `components/ui/` - Button、Card、Modal などの UI コンポーネント
-- `components/common/` - Container、Section、Heading などの共通コンポーネント
-
-## 🎯 開発のポイント
-
-### TypeScript
-
-- 完全な型安全性
-- CSS Modules 用の型定義
-- 厳格な eslint 設定
-
-### スタイル管理
-
-- **CSS Modules** - コンポーネント固有のスタイル
-- **グローバル CSS** - 全体共通のスタイル
-- **modern-normalize** - ブラウザ差異の統一
-
-### パフォーマンス
-
-- **SSR** - 初回表示の高速化
-- **コード分割** - 必要なコードのみ読み込み
-- **画像最適化** - public/images/での静的ファイル管理
-
-## 🚀 デプロイ
-
-### 推奨デプロイ先
-
-1. **Vercel** - SSR 対応、簡単デプロイ
-2. **Netlify** - 静的サイト向け
-3. **Railway** - サーバーサイド重視
-
-### Vercel でのデプロイ手順
-
-```bash
-# GitHubにプッシュ
-git add .
-git commit -m "デプロイ準備完了"
-git push origin main
-
-# Vercelでインポート
-# https://vercel.com → New Project → GitHub repo選択
-```
-
-## 🔧 カスタマイズ
-
-### 新しいページの追加
-
-```bash
-# 新しいページディレクトリを作成
-mkdir pages/contact
-touch pages/contact/+Page.tsx
-touch pages/contact/+Head.tsx
-```
-
-### 新しいコンポーネントの追加
-
-```bash
-# 新しいUIコンポーネントを作成
-mkdir components/ui/Button
-touch components/ui/Button/Button.tsx
-touch components/ui/Button/Button.module.css
-touch components/ui/Button/index.ts
-```
-
-### CMS 連携（オプション）
-
-- **microCMS** - 日本製ヘッドレス CMS
-- **Contentful** - 海外製ヘッドレス CMS
-- **Strapi** - オープンソース CMS
-
-## 📝 今後の拡張予定
-
-- [ ] お問い合わせフォーム
-- [x] ニュース・お知らせ機能（microCMS 連携） ✅
-- [ ] サイトマップ自動生成
-- [ ] PWA 対応
-- [ ] 多言語対応（i18n）
-- [ ] ダークモード対応
-- [ ] ニュース記事の検索機能
-- [ ] RSS フィード生成
-
-## 🤝 コントリビューション
-
-1. フォークする
-2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. 変更をコミット (`git commit -m 'Add amazing feature'`)
-4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
-5. プルリクエストを作成
 
 ## 📄 ライセンス
 

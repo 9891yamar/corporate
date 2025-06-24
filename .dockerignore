@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+
+# Build outputs
+dist
+.output
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE/Editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+CSS_GUIDELINES.md
+
+# Temporary files
+tmp
+temp
+
+# Logs
+logs
+*.log
+
+# Coverage
+coverage
+.coverage
+
+# Testing
+.nyc_output
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
