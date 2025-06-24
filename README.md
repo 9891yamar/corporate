@@ -11,6 +11,7 @@ Vite + TypeScript + Vike(React) V1 を使用したモダンな SSR 企業サイ�
 -   **CSS Modules** - スコープ化された CSS
 -   **modern-normalize** - モダンな CSS リセット
 -   **vike-react** - Vike 用 React 統合
+-   **Prettier** - コードフォーマッター
 -   **microCMS** - ヘッドレス CMS（ニュース管理）
 
 ## 📁 ディレクトリ構造

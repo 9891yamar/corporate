@@ -1,0 +1,24 @@
+# Prettier設定: Gitignoreと重複する基本的な除外
+node_modules/
+dist/
+build/
+.vite/
+*.log
+
+# Prettier特有: フォーマットしたくないファイル
+*.min.js
+*.min.css
+*.bundle.js
+*.d.ts
+
+# 生成されたファイル
+coverage/
+.cache/
+
+# ロックファイル（自動生成）
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# VSCode設定（プロジェクト固有）
+.vscode/settings.json
