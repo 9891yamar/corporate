@@ -1,4 +1,4 @@
-/* Header Component Styles */
+/* Header Component Styles - シンプルなCSS Modules */
 .header {
     background-color: var(--color-white);
     box-shadow: var(--shadow-sm);
@@ -9,7 +9,7 @@
 }
 
 .container {
-    max-width: var(--breakpoint-xl); /* 1280px標準に更新 */
+    max-width: var(--breakpoint-xl);
     margin: 0 auto;
     padding: var(--spacing-md) var(--spacing-lg);
     display: flex;
@@ -46,12 +46,12 @@
     background-color: var(--color-gray-50);
 }
 
-.navLink[aria-current='page'] {
+.navLinkActive {
     color: var(--color-primary);
     font-weight: var(--font-weight-semibold);
 }
 
-.navLink[aria-current='page']::after {
+.navLinkActive::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -63,8 +63,7 @@
     border-radius: 1px;
 }
 
-/* Responsive */
-/* 768px以下: モバイル・小型タブレット対応 */
+/* レスポンシブ対応 */
 @media (width <= 768px) {
     .container {
         flex-direction: column;
@@ -82,7 +81,6 @@
     }
 }
 
-/* 375px以下: 小型スマートフォン対応 */
 @media (width <= 375px) {
     .container {
         padding: var(--spacing-sm);

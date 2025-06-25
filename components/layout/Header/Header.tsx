@@ -14,7 +14,10 @@ const Header = ({ className }: HeaderProps) => {
                     role="navigation"
                     aria-label="メインナビゲーション"
                 >
-                    <a href="/" className={styles.navLink} aria-current="page">
+                    <a
+                        href="/"
+                        className={`${styles.navLink} ${styles.navLinkActive}`}
+                    >
                         トップ
                     </a>
                     <a href="/about" className={styles.navLink}>

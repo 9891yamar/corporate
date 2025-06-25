@@ -39,14 +39,12 @@ corporate/
 ├── .vscode/                     # VSCode設定
 │   └── settings.json           # フォーマット設定
 ├── styles/                     # CSS設計
-│   ├── globals/                # グローバルスタイル
-│   │   ├── index.css          # エントリーポイント
-│   │   ├── variables.css      # CSS Variables
-│   │   ├── reset.css          # CSSリセット
-│   │   ├── typography.css     # タイポグラフィ
-│   │   └── utilities.css      # ユーティリティクラス
-│   └── pages/                 # ページ固有スタイル
-│       └── index.css          # トップページスタイル
+│   └── globals/                # グローバルスタイル
+│       ├── index.css          # エントリーポイント
+│       ├── variables.css      # CSS Variables
+│       ├── reset.css          # CSSリセット
+│       ├── typography.css     # タイポグラフィ
+│       └── utilities.css      # ユーティリティクラス
 ├── components/                 # コンポーネント
 │   ├── ui/                    # 基本UIコンポーネント
 │   │   ├── Button/
@@ -95,6 +93,21 @@ corporate/
 - ✅ **ユーティリティクラス** - 効率的なレイアウト構築
 - ✅ **PostCSS** - 変数、ネスト、自動プレフィックス
 - ✅ **モバイルファースト** - レスポンシブデザイン
+- ✅ **CSS整理完了** - 重複ファイル削除、現代的設計への移行完了
+
+### 📁 CSS構成の最適化
+
+**整理されたファイル構成:**
+
+- **グローバルスタイル** (`styles/globals/`) - 最小限のベーススタイル
+- **CSS Modules** (`components/*/*.module.css`) - コンポーネント固有のスタイル
+- **削除された重複ファイル** - `pages/global.css`, `styles/pages/index.css`
+
+**設計方針:**
+
+- CSS Modules優先 - スタイルの局所化
+- ユーティリティクラス活用 - 効率的なスタイリング
+- BEM記法からの脱却 - 現代的なアプローチへの移行
 
 ### 🏗️ 開発体験
 
