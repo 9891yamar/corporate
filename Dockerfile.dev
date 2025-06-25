@@ -16,5 +16,9 @@ COPY . .
 
 EXPOSE 3000
 
+# Set environment variables for development
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
 # Start development server
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "dev", "--host", "0.0.0.0", "--port", "3000"]
