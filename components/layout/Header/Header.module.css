@@ -1,4 +1,4 @@
-/* Header Component Styles */
+/* Header Component Styles - シンプルなCSS Modules */
 .header {
     background-color: var(--color-white);
     box-shadow: var(--shadow-sm);
@@ -46,12 +46,12 @@
     background-color: var(--color-gray-50);
 }
 
-.navLink[aria-current='page'] {
+.navLinkActive {
     color: var(--color-primary);
     font-weight: var(--font-weight-semibold);
 }
 
-.navLink[aria-current='page']::after {
+.navLinkActive::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -63,7 +63,7 @@
     border-radius: 1px;
 }
 
-/* Responsive */
+/* レスポンシブ対応 */
 @media (width <= 768px) {
     .container {
         flex-direction: column;
@@ -78,5 +78,21 @@
 
     .logo {
         font-size: var(--font-size-xl);
+    }
+}
+
+@media (width <= 375px) {
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    .nav {
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+    }
+
+    .navLink {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-xs) var(--spacing-sm);
     }
 }
