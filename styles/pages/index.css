@@ -57,7 +57,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .welcome-section {
         padding: var(--spacing-xl) 0;
     }
