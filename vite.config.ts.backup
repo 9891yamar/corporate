@@ -2,8 +2,18 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vike from 'vike/plugin';
 
+// Ladleの実行を検出
+const isLadle =
+    process.env.LADLE === 'true' ||
+    process.env.npm_lifecycle_event === 'storybook' ||
+    process.argv.some(arg => arg.includes('ladle'));
+
 export default defineConfig({
-    plugins: [react(), vike()],
+    plugins: [
+        react(),
+        // Ladle実行時はVikeプラグインを無効化
+        ...(isLadle ? [] : [vike()]),
+    ],
     server: {
         host: '0.0.0.0',
         port: 3000,

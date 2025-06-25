@@ -6,6 +6,7 @@ export interface CardProps {
     padding?: 'sm' | 'md' | 'lg';
     hoverable?: boolean;
     className?: string;
+    style?: React.CSSProperties;
     children: ReactNode;
 }
 
@@ -14,6 +15,7 @@ export const Card = ({
     padding = 'md',
     hoverable = false,
     className,
+    style,
     children,
 }: CardProps) => {
     const cardClasses = [
@@ -26,7 +28,11 @@ export const Card = ({
         .filter(Boolean)
         .join(' ');
 
-    return <div className={cardClasses}>{children}</div>;
+    return (
+        <div className={cardClasses} style={style}>
+            {children}
+        </div>
+    );
 };
 
 export interface CardHeaderProps {
