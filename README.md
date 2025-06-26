@@ -38,16 +38,13 @@ CSS Variables、CSS Modules、PostCSSを使用したスケーラブルなCSS設�
 corporate/
 ├── .vscode/                     # VSCode設定
 │   └── settings.json           # フォーマット設定
-├── docs/                       # プロジェクトドキュメント
-│   ├── CSS_GUIDELINES.md       # CSS運用ガイドライン
-│   └── LADLE_GUIDE.md         # Ladleストーリーブック用ガイド
 ├── public/                     # 静的ファイル
-│   ├── images/                # 画像ファイル
-│   ├── icons/                 # アイコンファイル
-│   └── assets/                # その他静的アセット
-├── stories/                    # Storybookストーリーファイル
-│   ├── *.stories.tsx          # コンポーネントストーリー
-│   └── examples/              # サンプルストーリー
+│   └── images/                # 画像アセット（カテゴリ別整理）
+│       ├── hero/              # ヒーローセクション用画像
+│       ├── gallery/           # ギャラリー・プロダクト画像
+│       ├── logos/             # ロゴ・ブランド画像
+│       ├── icons/             # アイコン画像
+│       └── team/              # チーム・人物画像
 ├── styles/                     # CSS設計
 │   └── globals/                # グローバルスタイル
 │       ├── index.css          # エントリーポイント
@@ -88,9 +85,7 @@ corporate/
 ├── .prettierrc.json          # Prettier設定
 ├── .stylelintrc.json         # Stylelint設定
 ├── postcss.config.js         # PostCSS設定
-├── docs/                     # プロジェクトドキュメント
-│   ├── CSS_GUIDELINES.md     # CSS運用ガイドライン
-│   └── LADLE_GUIDE.md       # Ladleストーリーブック用ガイド
+├── CSS_GUIDELINES.md         # CSS運用ガイドライン
 ├── vite.config.ts            # Vite設定（SSR対応）
 ├── package.json
 └── tsconfig.json             # TypeScript設定
@@ -128,17 +123,15 @@ corporate/
 - ✅ **Stylelint** - CSS品質管理
 - ✅ **コンポーネント分離** - 再利用可能な構造
 - ✅ **VSCode統合** - 保存時自動フォーマット
-- ✅ **ストーリーブック対応** - コンポーネント開発・テスト環境
-- ✅ **静的ファイル管理** - 画像・アセットの最適化配置
+- ✅ **画像アセット管理** - カテゴリ別整理された画像配置
 
 ### 📁 プロジェクト構造の最適化
 
 **整理されたフォルダ構成:**
 
-- **ドキュメント** (`docs/`) - プロジェクト関連ドキュメントを集約
-- **静的ファイル** (`public/`) - 画像、アイコン、その他アセット
-- **ストーリー** (`stories/`) - Storybookストーリーファイルを統一管理
+- **画像アセット** (`public/images/`) - カテゴリ別に整理された画像管理
 - **コンポーネント** (`components/`) - 再利用可能なUIコンポーネント
+- **スタイル設計** (`styles/`) - モダンなCSS設計の適用
 
 ### ⚡ パフォーマンス
 
@@ -320,7 +313,7 @@ export const Button = ({ variant, children }: ButtonProps) => {
 };
 ```
 
-**詳細な運用ガイドラインは [`docs/CSS_GUIDELINES.md`](./docs/CSS_GUIDELINES.md) を参照してください。**
+**詳細な運用ガイドラインは [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
 
 ## 🏗️ コンポーネント設計
 
@@ -373,7 +366,7 @@ import { Button, Card, CardBody } from '../components';
 - **CSS Modules**: `Component.module.css`
 - **型定義**: `types.ts`、`interfaces.ts`
 
-**詳細な規約は [`docs/CSS_GUIDELINES.md`](./docs/CSS_GUIDELINES.md) を参照してください。**
+**詳細な規約は [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
 
 ## 🚀 デプロイ
 
@@ -419,6 +412,20 @@ touch components/ui/Input/index.ts
 export * from './ui/Input';
 ```
 
+### 画像アセットの追加
+
+```bash
+# 画像をカテゴリ別に配置
+public/images/hero/hero-main-desktop.jpg
+public/images/logos/logo-company-primary.svg
+public/images/icons/icon-service-web.svg
+
+# Reactでの使用例
+<img src="/images/hero/hero-main-desktop.jpg" alt="メインヒーロー画像" />
+```
+
+**画像命名規則の詳細は [`public/images/README.md`](./public/images/README.md) を参照してください。**
+
 ### CSS Variables・スタイルの拡張
 
 ```css
@@ -430,7 +437,7 @@ export * from './ui/Input';
 }
 ```
 
-**詳細なカスタマイズ方法は [`docs/CSS_GUIDELINES.md`](./docs/CSS_GUIDELINES.md) を参照してください。**
+**詳細なカスタマイズ方法は [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) を参照してください。**
 
 ## 📋 完了事項 & 今後の拡張
 
@@ -447,8 +454,8 @@ export * from './ui/Input';
 - [x] **CSS運用ガイドライン** - 詳細な設計指針とチェックリスト
 - [x] **レスポンシブデザイン** - モバイルファースト設計
 - [x] **アクセシビリティ** - ARIA対応・キーボードナビゲーション
-- [x] **プロジェクト構造最適化** - ドキュメント・ストーリー・静的ファイルの整理
-- [x] **静的ファイル管理** - 画像・アイコン・アセット用フォルダ構成
+- [x] **プロジェクト構造最適化** - 画像アセット・コンポーネント・スタイルの整理
+- [x] **画像アセット管理** - カテゴリ別に整理された画像フォルダ構造
 
 ### 短期的な改善
 
@@ -475,7 +482,7 @@ export * from './ui/Input';
 
 1. フォークする
 2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. [`docs/CSS_GUIDELINES.md`](./docs/CSS_GUIDELINES.md) に従って開発
+3. [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) に従って開発
 4. コミット前にフォーマットを実行 (`pnpm run format`)
 5. CSSをリント (`pnpm run lint:css`)
 6. コミット (`git commit -m 'Add amazing feature'`)
@@ -484,8 +491,8 @@ export * from './ui/Input';
 
 ## 📚 ドキュメント
 
-- [`docs/CSS_GUIDELINES.md`](./docs/CSS_GUIDELINES.md) - CSS運用ガイドライン
-- [`docs/LADLE_GUIDE.md`](./docs/LADLE_GUIDE.md) - Ladleストーリーブック用ガイド
+- [`CSS_GUIDELINES.md`](./CSS_GUIDELINES.md) - CSS運用ガイドライン
+- [`public/images/README.md`](./public/images/README.md) - 画像アセット管理ガイド
 - [Vike Documentation](https://vike.dev/) - Vike公式ドキュメント
 - [React 19 Documentation](https://react.dev/) - React公式ドキュメント
 
